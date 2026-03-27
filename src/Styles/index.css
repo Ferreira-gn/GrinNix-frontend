@@ -19,13 +19,12 @@
 
   background: var(--bg);
   color: #e5e4e7;
-  
+
   letter-spacing: 0.18px;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
 
 * {
@@ -45,4 +44,21 @@ h3,
 h4,
 h5 {
   font-family: var(--heading);
+}
+
+/* Scrollbar style system */
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #3c3c4a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555566;
 }
