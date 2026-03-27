@@ -8,7 +8,7 @@ const Aside: React.FC = () => {
       className={`
         flex flex-col
         border-r-2 border-r-[#14161A]
-        mr-3 h-dvh max-w-63 w-full
+        h-dvh max-w-63 w-full
       `}
     >
       <div className="flex flex-col p-4 items-start border-b-2 border-b-[#1C1D25]">
