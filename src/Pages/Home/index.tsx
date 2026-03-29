@@ -1,6 +1,7 @@
 import type React from "react";
 import ChallengerAside from "../../Components/organism/ChallengerAside";
 import ChallengerDescription from "../../Components/organism/ChallengerDescription";
+import ChallengerEditor from "../../Components/organism/ChallengerEditor";
 
 const Home: React.FC = () => {
   const challenge = {
@@ -94,6 +95,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="h-dvh w-dvw flex ">
+
       <ChallengerAside />
 
       <ChallengerDescription
@@ -101,6 +103,8 @@ const Home: React.FC = () => {
         description={challenge.markdown}
         difficulty="EASY"
       />
+
+      <ChallengerEditor />
     </div>
   );
 };
