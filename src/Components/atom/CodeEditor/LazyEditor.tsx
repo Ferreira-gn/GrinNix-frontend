@@ -1,4 +1,4 @@
-import CodeMirror from "@uiw/react-codemirror";
+import CodeMirror, { type Extension } from "@uiw/react-codemirror";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { lintGutter } from "@codemirror/lint";
 import codeEditorTheme from "./codeEditorTheme";
@@ -9,11 +9,12 @@ import { python } from "@codemirror/lang-python";
 import { java } from "@codemirror/lang-java";
 
 import syntaxErrorLinter from "../../../utils/syntaxErrorLinter/syntaxErrorLinter";
+import type { SupportedLanguage } from "../../../types/suportedLenguage";
 
 interface LazyEditorProps {
   code: string;
   onChange: (code: string) => void;
-  suportedLanguages: "ts" | "go" | "py" | "ja";
+  suportedLanguages: SupportedLanguage;
 }
 
 const LazyEditor: React.FC<LazyEditorProps> = ({
@@ -21,7 +22,7 @@ const LazyEditor: React.FC<LazyEditorProps> = ({
   suportedLanguages,
   onChange,
 }) => {
-  const languageMap = {
+  const languageMap: Record<SupportedLanguage, Extension> = {
     ts: javascript({ typescript: true, jsx: true }),
     go: go(),
     py: python(),

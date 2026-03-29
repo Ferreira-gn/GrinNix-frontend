@@ -1,10 +1,11 @@
 import { Suspense, lazy } from "react";
 const LazyEditor = lazy(() => import("./LazyEditor"));
+import type { SupportedLanguage } from "../../../types/suportedLenguage";
 
 interface CodeEditorProps {
   code: string;
   onChange: (code: string) => void;
-  suportedLanguages: "ts" | "go" | "py" | "ja";
+  suportedLanguages: SupportedLanguage;
 }
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
