@@ -1,0 +1,1 @@
+export type SupportedLanguage = "ts" | "ja" | "py" | "go";
