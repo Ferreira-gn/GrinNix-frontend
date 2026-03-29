@@ -46,12 +46,15 @@ const markdownStyleSystem: Components = {
     <p className="text-[14px] text-[#c5ccd8] leading-[1.8] mb-3">{children}</p>
   ),
 
-  code: ({ inline, className, children, ...props }: CodeProps) => {
+  code: ({ className, children, ...props }: CodeProps) => {
     const match = /language-(\w+)/.exec(className || "");
     const language = match ? match[1] : "";
     const codeString = String(children).replace(/\n$/, "");
 
-    if (inline) {
+
+    const isInline = !match && !codeString.includes("\n");
+
+    if (isInline) {
       return (
         <code
           className="bg-[rgba(239,71,67,0.1)] text-[#ef4743] px-1.5 py-0.5 rounded text-[0.85em] font-mono"
@@ -69,7 +72,6 @@ const markdownStyleSystem: Components = {
             {language}
           </span>
         )}
-        
         <SyntaxHighlighter
           style={oneDark}
           language={language || "text"}
