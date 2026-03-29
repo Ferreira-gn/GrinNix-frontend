@@ -2,7 +2,7 @@ import type React from "react";
 import ChallengerOption from "../../atom/ChallengerOption";
 import { LuBookOpen } from "react-icons/lu";
 
-const Aside: React.FC = () => {
+const ChallengerAside: React.FC = () => {
   return (
     <aside
       className={`
@@ -58,4 +58,4 @@ const Aside: React.FC = () => {
   );
 };
 
-export default Aside;
+export default ChallengerAside;
