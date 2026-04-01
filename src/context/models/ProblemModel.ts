@@ -7,7 +7,7 @@ interface ProblemContextType {
   description: string;
   difficulty: ProblemDifficulty;
   isLoading: boolean;
-  changeProblem: React.Dispatch<React.SetStateAction<string>>;
+  changeProblem: (newProblemId: string) => Promise<void>;
 }
 
 const ProblemContextInit: ProblemContextType = {

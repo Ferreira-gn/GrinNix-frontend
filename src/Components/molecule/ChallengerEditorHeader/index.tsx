@@ -2,11 +2,12 @@ import type React from "react";
 import ButtonDefault from "../../atom/ButtonDefautl";
 import { LuPlay, LuSend } from "react-icons/lu";
 import LanguageSelector from "../LanguageSelector";
+import type { SupportedLanguage } from "../../../types/suportedLenguage";
 
 interface ChallengerEditorHeaderProps {
   onRun: () => void;
   onSubmit: () => void;
-  onLanguageChange: (language: string) => void;
+  onLanguageChange: (language: SupportedLanguage) => void;
 }
 
 const ChallengerEditorHeader: React.FC<ChallengerEditorHeaderProps> = ({

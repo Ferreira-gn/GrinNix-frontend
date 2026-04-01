@@ -12,59 +12,50 @@ const ProblemProvider: React.FC<ProblemProviderProps> = ({ children }) => {
   const [description, setDescription] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [difficulty, setDifficulty] = useState<ProblemDifficulty>("EASY");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const loadInitialProblem = useCallback(
-    () => async () => {
-      try {
-        setIsLoading(true);
-        const problem = await getProblem();
-        setDescription(problem[0].description);
-        setTitle(problem[0].title);
-        setDifficulty(problem[0].difficulty);
-        setProblemId(problem[0].id);
-      } finally {
-        setIsLoading(false);
+  console.log("ProblemProvider");
+
+  const loadInitialProblem = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const problem = await getProblem();
+      setDescription(problem[0].description);
+      setTitle(problem[0].title);
+      setDifficulty(problem[0].difficulty);
+      setProblemId(problem[0].id);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const changeProblem = useCallback(async (newProblemId: string) => {
+    try {
+      setIsLoading(true);
+
+      const problem = await getProblemById(newProblemId);
+
+      if (!problem) {
+        console.error("Problem not found");
+        return;
       }
-    },
-    [],
-  );
 
-  const changeProblem = useCallback(
-    () => async () => {
-      try {
-        setIsLoading(true);
-        if (!problemId) return;
-
-        const problem = await getProblemById(problemId);
-
-        if (!problem) {
-          console.error("Problem not found");
-          return;
-        }
-
-        setDescription(problem.description);
-        setTitle(problem.title);
-        setDifficulty(problem.difficulty);
-        setProblemId(problem.id);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [problemId],
-  );
+      setDescription(problem.description);
+      setTitle(problem.title);
+      setDifficulty(problem.difficulty);
+      setProblemId(problem.id);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    if (!problemId) {
-      loadInitialProblem();
-    }
-  }, [problemId, loadInitialProblem]);
-
-  useEffect(() => {
-    if (problemId) {
-      changeProblem();
-    }
-  }, [problemId, changeProblem]);
+    loadInitialProblem();
+  }, [loadInitialProblem]);
 
   const contextData = useMemo(
     () => ({

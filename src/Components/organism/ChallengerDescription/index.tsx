@@ -1,16 +1,29 @@
+import useProblem from "../../../hooks/useProblem";
 import MarkdownRenderer from "../../atom/MarkdownRenderer";
 
-interface ChallengerDescriptionProps {
-  title: string;
-  description: string;
-  difficulty: "EASY" | "MEDIUM" | "HARD";
-}
+const ChallengerDescription: React.FC = () => {
+  const { description, title, difficulty, isLoading } = useProblem();
 
-const ChallengerDescription: React.FC<ChallengerDescriptionProps> = ({
-  title,
-  description,
-  difficulty,
-}) => {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  let difficultyColor = "";
+
+  switch (difficulty) {
+    case "EASY":
+      difficultyColor = "text-emerald-500";
+      break;
+    case "MEDIUM":
+      difficultyColor = "text-amber-600";
+      break;
+    case "HARD":
+      difficultyColor = "text-rose-500";
+      break;
+    default:
+      difficultyColor = "text-white-500";
+  }
+
   return (
     <div
       className="
@@ -22,7 +35,9 @@ const ChallengerDescription: React.FC<ChallengerDescriptionProps> = ({
     >
       <div className="flex items-center gap-3 mb-10">
         <h2 className="text-2xl font-bold relative">{title}</h2>
-        <p className="relative -top-2 text-[14px] font-medium text-emerald-500">
+        <p
+          className={`relative -top-2 text-[14px] font-medium ${difficultyColor}`}
+        >
           {difficulty}
         </p>
       </div>
