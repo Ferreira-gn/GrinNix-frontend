@@ -1,8 +1,35 @@
 import type React from "react";
 import ChallengerOption from "../../atom/ChallengerOption";
 import { LuBookOpen } from "react-icons/lu";
+import type { Problem } from "../../../types/problems";
+import { getProblem } from "../../../service/problems";
+import { useCallback, useEffect, useState } from "react";
+import useProblem from "../../../hooks/useProblem";
 
 const ChallengerAside: React.FC = () => {
+  const { problemId, changeProblem } = useProblem();
+  const [problem, setProblem] = useState<Problem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getProblems = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const problem = await getProblem();
+      setProblem(problem);
+      console.log(problem);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    getProblems();
+  }, [getProblems]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <aside
       className={`
@@ -22,27 +49,21 @@ const ChallengerAside: React.FC = () => {
       </div>
 
       <ul className="flex-1 overflow-y-auto scrollbar-thin py-2">
-        <ChallengerOption
-          optionId="01"
-          title="Two Sum"
-          difficulty="EASY"
-          isSelected={true}
-          onClickOption={(id) => alert(id)}
-        />
-        <ChallengerOption
-          optionId="02"
-          title="Two Sum"
-          difficulty="HARD"
-          isSelected={false}
-          onClickOption={(id) => alert(id)}
-        />
-        <ChallengerOption
-          optionId="03"
-          title="Two Sum"
-          difficulty="MEDIUM"
-          isSelected={false}
-          onClickOption={(id) => alert(id)}
-        />
+        {problem.map((item) => (
+          <ChallengerOption
+            key={item.id}
+            optionId={item.id}
+            title={item.title}
+            difficulty={item.difficulty}
+            isSelected={item.id === problemId}
+            onClickOption={(id) => {
+              if (problemId === item.id) {
+                return;
+              }
+              changeProblem(id); 
+            }}
+          />
+        ))}
       </ul>
 
       <div className=" flex items-center p-5 border-t-[#1C1D25] border-t-2">

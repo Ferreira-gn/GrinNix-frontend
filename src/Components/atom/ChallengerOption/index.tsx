@@ -28,7 +28,7 @@ const ChallengerOption: React.FC<ChallengerOptionProps> = ({
       difficultyColor = "bg-rose-500";
       break;
     default:
-      difficultyColor = "bg-gray-500";
+      difficultyColor = "bg-white-500";
   }
 
   return (
@@ -45,8 +45,8 @@ const ChallengerOption: React.FC<ChallengerOptionProps> = ({
       <div className={`w-2 h-2 rounded-full ${difficultyColor}`} />
 
       <div className="flex-1">
-        <p className="text-sm truncate font-medium">{title}</p>
-        <p className="text-xs  text-[#707D8f] capitalize">
+        <p className="text-sm  font-medium truncate capitalize w-40">{title}</p>
+        <p className="text-xs  text-[#707D8f]  capitalize">
           {difficulty.toLowerCase()}
         </p>
       </div>
