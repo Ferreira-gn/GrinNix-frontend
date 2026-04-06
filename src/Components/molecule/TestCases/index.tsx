@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LuChevronDown, LuChevronUp } from "react-icons/lu";
 import TestCaseOption from "../../atom/TestCaseOption";
-import type { TestCase } from "../../../utils/testCases/testCases";
+import type { TestCase } from "../../../types/problems";
 
 interface TestCasesProps {
   testCases: TestCase[];
@@ -32,9 +32,9 @@ const TestCases: React.FC<TestCasesProps> = ({ testCases }) => {
         <div className="max-h-100 pb-5 px-4 space-y-4 overflow-y-auto">
           {testCases.map((testCase, index) => (
             <TestCaseOption
-              key={index}
+              key={testCase.id}
               number={index + 1}
-              expected={testCase.expected}
+              expected={testCase.expectedOutput}
               input={testCase.input}
               passed={testCase.passed}
             />

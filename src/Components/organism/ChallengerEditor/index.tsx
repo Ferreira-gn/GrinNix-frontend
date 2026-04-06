@@ -1,3 +1,5 @@
+import useCode from "../../../hooks/useCode";
+import useProblem from "../../../hooks/useProblem";
 import CodeEditor from "../../atom/CodeEditor";
 import ChallengerEditorHeader from "../../molecule/ChallengerEditorHeader";
 import TestCases from "../../molecule/TestCases";
@@ -7,33 +9,18 @@ interface ChallengerEditorProps {
 }
 
 const ChallengerEditor: React.FC<ChallengerEditorProps> = () => {
-  const mockTestCases = [
-    {
-      expected: "42",
-      input: "6 * 7",
-      passed: true,
-    },
-    {
-      expected: "Hello, World!",
-      input: "console.log('Hello, World!')",
-      passed: true,
-    },
-    {
-      expected: "Error: Division by zero",
-      input: "10 / 0",
-      passed: false,
-    },
-    {
-      expected: "true",
-      input: "isPalindrome('racecar')",
-      passed: true,
-    },
-    {
-      expected: "false",
-      input: "isPalindrome('hello')",
-      passed: false,
-    },
-  ];
+  const { problemId } = useProblem();
+  const {
+    currentLanguage,
+    languages,
+    userCode,
+    setUserCode,
+    handleRunCode,
+    handleSubmitCode,
+    selectCurrentLanguage,
+  } = useCode(problemId);
+
+
 
   return (
     <div
@@ -43,9 +30,18 @@ const ChallengerEditor: React.FC<ChallengerEditorProps> = () => {
         border-r-2 border-r-[#14161A]
       "
     >
-      <ChallengerEditorHeader />
-      <CodeEditor code="" onChange={() => ""} suportedLanguages="go" />
-      <TestCases testCases={mockTestCases} />
+      <ChallengerEditorHeader
+        onLanguageChange={selectCurrentLanguage}
+        languages={languages}
+        onRun={handleRunCode}
+        onSubmit={handleSubmitCode}
+      />
+      <CodeEditor
+        code={userCode}
+        onChange={setUserCode}
+        suportedLanguages={currentLanguage?.name ?? "ts"}
+      />
+      <TestCases testCases={[]} />
     </div>
   );
 };
