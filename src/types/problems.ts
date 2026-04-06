@@ -30,4 +30,11 @@ export interface TestCase {
   passed?: boolean;
 }
 
+export interface SignatureResponse {
+  id: string;
+  signature: string;
+  language: Language;
+  problem: Problem;
+}
+
 export type ProblemsResponse = Problem[];

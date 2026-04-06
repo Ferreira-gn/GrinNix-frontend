@@ -1,10 +1,13 @@
 import axios from "axios";
-import type { Problem, ProblemsResponse } from "../types/problems";
+import type {
+  Problem,
+  ProblemsResponse,
+  SignatureResponse,
+} from "../types/problems";
 
 const getProblem = async (): Promise<ProblemsResponse> => {
   try {
     const response = await axios.get(`http://localhost:4050/api/v1/problems`);
-    console.log(response.data);
 
     if (!response.data) {
       return [];
@@ -22,7 +25,6 @@ const getProblemById = async (problemId: string): Promise<Problem | null> => {
     const response = await axios.get(
       `http://localhost:4050/api/v1/problems/${problemId}`,
     );
-    console.log(response.data);
 
     if (!response.data) {
       return null;
@@ -51,25 +53,24 @@ const getTestCasesByProblemId = async (
   // }
 };
 
-const getSignatureByProblemId = async (
+const getSignature = async (
   problemId: string,
-): Promise<ProblemsResponse> => {
-  // try {
-  //   const response = await axios.get(`http://localhost:4050/api/v1/problems`);
-  //   console.log(response.data);
-  //   if (!response.data) {
-  //     return [];
-  //   }
-  //   return response.data as ProblemsResponse;
-  // } catch (error) {
-  //   console.error(error);
-  //   return [];
-  // }
+  languageId: string,
+): Promise<SignatureResponse | null> => {
+  try {
+    const response = await axios.get(
+      `http://localhost:4050/api/v1/signatures/languages/${languageId}/problems/${problemId}`,
+    );
+
+    if (!response.data) {
+      return null;
+    }
+
+    return response.data as SignatureResponse;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 
-export {
-  getProblem,
-  getProblemById,
-  getTestCasesByProblemId,
-  getSignatureByProblemId,
-};
+export { getProblem, getProblemById, getTestCasesByProblemId, getSignature };
