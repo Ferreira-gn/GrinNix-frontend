@@ -68,7 +68,7 @@ const ChallengerAside: React.FC = () => {
 
       <div className=" flex items-center p-5 border-t-[#1C1D25] border-t-2">
         <a
-          href="/soluctions"
+          href="/solutions"
           className="flex items-center gap-3 text-[#707D8f] font-medium"
         >
           <LuBookOpen />

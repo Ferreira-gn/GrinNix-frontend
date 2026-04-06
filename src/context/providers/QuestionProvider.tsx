@@ -14,8 +14,6 @@ const ProblemProvider: React.FC<ProblemProviderProps> = ({ children }) => {
   const [difficulty, setDifficulty] = useState<ProblemDifficulty>("EASY");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  console.log("ProblemProvider");
-
   const loadInitialProblem = useCallback(async () => {
     try {
       setIsLoading(true);
