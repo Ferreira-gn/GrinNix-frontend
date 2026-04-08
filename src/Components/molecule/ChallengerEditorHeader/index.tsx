@@ -6,7 +6,7 @@ import type { Language } from "../../../types/language";
 
 interface ChallengerEditorHeaderProps {
   onRun: () => void;
-  onSubmit: () => void;
+  onSubmit: () => Promise<void>;
   languages: Language[];
   onLanguageChange: (languageId: string) => void;
 }
@@ -23,11 +23,11 @@ const ChallengerEditorHeader: React.FC<ChallengerEditorHeaderProps> = ({
       <LanguageSelector languages={languages} onLanguageChange={onLanguageChange} />
 
       <div className="flex gap-2">
-        <ButtonDefault variant="outline" size="md" onClick={onRun}>
+        <ButtonDefault variant="outline" size="md" onClick={() => onRun()}>
           <LuPlay size={16} />
           Rodar
         </ButtonDefault>
-        <ButtonDefault size="md" onClick={onSubmit}>
+        <ButtonDefault size="md" onClick={() => onSubmit()}>
           <LuSend size={18} />
           Enviar
         </ButtonDefault>

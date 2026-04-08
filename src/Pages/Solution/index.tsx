@@ -27,7 +27,7 @@ const Solution: React.FC = () => {
             onChange={(filter) => setFilterType(filter)}
             soluctionLen={filteredSolutions.length}
           />
-          <SolutionList solutions={filteredSolutions} isLoading={loading} />
+          <SolutionList solutions={filteredSolutions} isLoading={loading} filteredType={filterType} />
         </main>
       </div>
     </div>
