@@ -1,12 +1,12 @@
 import type React from "react";
 
-interface LanguageOptionProps {
+interface SelectorOptionProps {
   selected: boolean;
   title: string;
   onClick: () => void;
 }
 
-const LanguageOption: React.FC<LanguageOptionProps> = ({
+const SelectorOption: React.FC<SelectorOptionProps> = ({
   selected,
   title,
   onClick,
@@ -30,4 +30,4 @@ const LanguageOption: React.FC<LanguageOptionProps> = ({
   );
 };
 
-export default LanguageOption;
+export default SelectorOption;
