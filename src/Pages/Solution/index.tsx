@@ -1,49 +1,34 @@
 import type React from "react";
-import ChallengerAside from "../../Components/organism/ChallengerAside";
-import SolutionList from "../../Components/organism/Solutions/SolutionList";
+import SolutionAside from "../../Components/organism/SoulutionAside";
+import SolutionList from "./sections/SolutionList";
+import SoluctionFilter from "./sections/SoluctionFilter";
+import useSoluction from "../../hooks/useSoluction";
+import useProblem from "../../hooks/useProblem";
+import type { SoluctionFilterType } from "../../types/soluction";
+import { useState } from "react";
 
 const Solution: React.FC = () => {
-  // teste - (depois vem do backend)
-  const solutions = [
-    {
-      id: 1,
-      title: "Hash Map",
-      language: "javascript",
-      code: `function twoSum(nums, target) {
-  const map = {};
-  for (let i = 0; i < nums.length; i++) {
-    const complement = target - nums[i];
-    if (map[complement] !== undefined) {
-      return [map[complement], i];
-    }
-    map[nums[i]] = i;
-  }
-}`,
-      author: "user1",
-      date: "2026-03-29",
-    },
-    {
-      id: 2,
-      title: "Brute Force",
-      language: "python",
-      code: `def two_sum(nums, target):
-    for i in range(len(nums)):
-        for j in range(i+1, len(nums)):
-            if nums[i] + nums[j] == target:
-                return [i, j]`,
-      author: "user2",
-      date: "2026-03-28",
-    },
-  ];
+  const [filterType, setFilterType] =
+    useState<SoluctionFilterType>("community");
+  const userId = "87be0efa-7e2f-4e62-9c99-7079f125567a";
+  const { problemId } = useProblem();
+  const { filteredSolutions, loading } = useSoluction({
+    filterType,
+    problemId,
+    userId,
+  });
 
   return (
-    <div className="h-dvh w-dvw flex bg-[#020617] text-white">
-      <ChallengerAside />
-
-      <div className="flex-1 px-6 py-6 overflow-y-auto">
-        <h1 className="text-2xl font-bold mb-6">Soluções da Comunidade</h1>
-
-        <SolutionList solutions={solutions} />
+    <div className="h-dvh w-dvw flex flex-col">
+      <div className="flex-1 flex">
+        <SolutionAside />
+        <main className="flex flex-col flex-1 overflow-y-auto scrollbar-thin gap-4">
+          <SoluctionFilter
+            onChange={(filter) => setFilterType(filter)}
+            soluctionLen={filteredSolutions.length}
+          />
+          <SolutionList solutions={filteredSolutions} isLoading={loading} />
+        </main>
       </div>
     </div>
   );

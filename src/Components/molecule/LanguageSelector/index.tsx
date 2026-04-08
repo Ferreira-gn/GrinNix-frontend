@@ -1,6 +1,6 @@
 import type React from "react";
 import { useState } from "react";
-import LanguageOption from "../../atom/LanguageOption";
+import SelectorOption from "../../atom/SelectorOption";
 import type { Language } from "../../../types/language";
 
 interface LanguageSelectorProps {
@@ -22,7 +22,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   return (
     <div className="flex gap-2">
       {languages.map((value) => (
-        <LanguageOption
+        <SelectorOption
           key={value.id}
           selected={value.id === selectedLanguage}
           title={value.name}
